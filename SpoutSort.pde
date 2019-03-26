@@ -620,6 +620,10 @@ void keyPressed(){
     threshold -= 1;
   if(key == '=')
     threshold += 1;
+  if(key == '_')
+    threshold -= 10;
+  if(key == '+')
+    threshold += 10;
     
   if(key == ' ' && looping){
     looping = false;

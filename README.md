@@ -39,6 +39,8 @@ Alternativelly, if you're not using this as a Spout object, you can test out the
 - [4] to switch t0 vertical sorting.
 - [5] to switch to horizontal sorting.
 - [6] to switch to diagonal sorting. Looks nice but is pretty slow.
+- [-] to decrease threshold
+- [=] to increase threshold
 - [0] to enable/disable text debugging.
 - [spacebar] to pause/unpause.
 - [right mouse click on the video] to change the video.

@@ -615,6 +615,11 @@ void keyPressed(){
     direction = 2;
   if(key == '0')
     displayWords = !displayWords;
+   
+  if(key == '-')
+    threshold -= 1;
+  if(key == '=')
+    threshold += 1;
     
   if(key == ' ' && looping){
     looping = false;

@@ -91,7 +91,7 @@ void setup() {
   spout = new Spout(this);
   spout.createSender(senderName, width, height);
   spout.createSpoutControl("Sorting mode", "float", 0, 3, 1);
-  spout.createSpoutControl("Threshold value", "float", 0, 100, 90);
+  spout.createSpoutControl("Threshold value", "float", 0, 200, 90);
   spout.createSpoutControl("Direction", "float", 0, 2, 0);
   
   spout.openSpoutControls(senderName);

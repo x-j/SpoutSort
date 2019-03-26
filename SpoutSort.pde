@@ -172,18 +172,19 @@ void draw() {
       break;
   }
   img.updatePixels();
-  trueWords +="   ";
-  trueWords += direction == 0 ? "|||" : direction == 1 ? "===" : "///";
-  
-  trueWords += "\n\nprocessed frames: "+frameCount;
-  trueWords += "\nfps: "+frameRate;
-  textSize(20);
-  
-  image(img, 0,0, width, height);
+  if(displayWords){
+    trueWords +="   ";
+    trueWords += direction == 0 ? "|||" : direction == 1 ? "===" : "///";
     
-  text(trueWords, 10, 10, 350, 380);
-  text(brag.subSequence(0,6).toString()+brag.substring(7).toUpperCase(), width - 472, height - 25, width, height);
-  
+    trueWords += "\n\nprocessed frames: "+frameCount;
+    trueWords += "\nfps: "+frameRate;
+    textSize(20);
+  }
+  image(img, 0,0, width, height);
+  if(displayWords){
+    text(trueWords, 10, 10, 350, 380);
+    text(brag.subSequence(0,6).toString()+brag.substring(7).toUpperCase(), width - 444, height - 25, width, height);
+  }
   spout.sendTexture(img);
 }
 
@@ -614,8 +615,7 @@ void keyPressed(){
     direction = 2;
   if(key == '0')
     displayWords = !displayWords;
-  
-  
+    
   if(key == ' ' && looping){
     looping = false;
     noLoop();

@@ -1,0 +1,30 @@
+/*{
+	"CREDIT": "SpoutControls - spout.zeal.co",
+	"DESCRIPTION": "SpoutSort",
+	"CATEGORIES": [
+	"Parameter adjustment"
+	],
+	"INPUTS": [
+		{
+			"NAME": "Sorting mode",
+			"TYPE": "float",
+			"MIN": 0.00,
+			"MAX": 3.00,
+			"DEFAULT": 1.00
+		},
+		{
+			"NAME": "Threshold value",
+			"TYPE": "float",
+			"MIN": 0.00,
+			"MAX": 100.00,
+			"DEFAULT": 90.00
+		},
+		{
+			"NAME": "Direction",
+			"TYPE": "float",
+			"MIN": 0.00,
+			"MAX": 2.00,
+			"DEFAULT": 0.00
+		},
+	],
+}*/

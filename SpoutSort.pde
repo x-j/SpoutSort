@@ -1,7 +1,7 @@
 
 /*
   SpoutSort
-  Ksawery Jasienski | 2018 | @try_miga
+  xj | 2018 | @try_miga
   
   based on:
     ASDF Pixel Sort
@@ -10,6 +10,8 @@
   many thanks to folks at spout.zeal.co for being nice
 
  */
+ 
+String brag = "(ɔ) xj 2019 all rights reversed et caetera";
 
 import spout.*;
 import processing.video.*;
@@ -63,6 +65,8 @@ int brightnessValue;
 int row;
 int column;
 
+boolean displayWords;
+
 boolean looping = true;
 long currTime, prevTime;
 long elapsedTime;
@@ -77,6 +81,8 @@ void setup() {
 
   pgr = createGraphics(width,height, PConstants.P2D);
   img = createImage(width, height, ARGB);
+  
+  displayWords = true;
   
    //file opening stuff
   fileSelected = false;
@@ -176,6 +182,7 @@ void draw() {
   image(img, 0,0, width, height);
     
   text(trueWords, 10, 10, 350, 380);
+  text(brag.subSequence(0,6).toString()+brag.substring(7).toUpperCase(), width - 472, height - 25, width, height);
   
   spout.sendTexture(img);
 }
@@ -605,6 +612,10 @@ void keyPressed(){
     direction = 1;
   if(key == '6')
     direction = 2;
+  if(key == '0')
+    displayWords = !displayWords;
+  
+  
   if(key == ' ' && looping){
     looping = false;
     noLoop();
@@ -613,4 +624,5 @@ void keyPressed(){
     looping = true;
     loop();
   }
+  
 }

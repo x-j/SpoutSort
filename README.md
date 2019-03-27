@@ -13,7 +13,7 @@ This patch does the following:
 4. this script is a SpoutControls sender which means you can use it together with your other Spout applications + additional bonus if you happen to know how to use SpoutControls
 5. this whole thing should also be usable as an FFGL plugin which is nice
 
-WARNING: the maths in this patch are very clunky as smelly so don't be surprised if you end up with ~8fps while running a 720p file.
+WARNING: the maths in this patch are very clunky and smelly so don't be surprised if you end up with ~8fps while running a 720p file.
 Stick to using smaller files for now, also using higher sorting tresholds results in more fps.
 
 
@@ -86,7 +86,7 @@ Create a copy of the main SpoutSort directory and paste in in your FFGL plugin f
 You may experience the following:
 
 - random crashes. Oh, the joy that is Processing!
-- the file selection dialog may appear _behind_the window of the application drag around and look for it! It's a treasure hunt!
+- the file selection dialog may appear _behind_ the window of the application. Drag it around and look for it! It's a treasure hunt!
 
 ![twuj stary](https://i.ibb.co/zPwwrp8/twuj-stary.png)
 

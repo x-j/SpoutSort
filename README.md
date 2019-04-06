@@ -46,6 +46,8 @@ Alternativelly, if you're not using this as a Spout object, you can test out the
 - [=] to increase threshold by 1
 - [\_] or [Shift-] to decrease threshold by 10
 - [+] or [Shift=] to increase threshold by 10
+- [ to slow down video playback
+- ] to speed up video playback
 - [0] to enable/disable text debugging.
 - [spacebar] to pause/unpause.
 - [right mouse click on the video] to change the video.

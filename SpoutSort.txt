@@ -16,7 +16,7 @@
 			"NAME": "Threshold value",
 			"TYPE": "float",
 			"MIN": 0.00,
-			"MAX": 100.00,
+			"MAX": 200.00,
 			"DEFAULT": 90.00
 		},
 		{

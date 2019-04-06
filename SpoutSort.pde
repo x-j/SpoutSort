@@ -15,7 +15,7 @@ String brag = "(ɔ) xj 2019 all rights reversed et caetera";
 
 import spout.*;
 import processing.video.*;
-
+import processing.sound.*;
 
 
 //DECLARING ALL THE SPOUT STUFF HERE
@@ -31,6 +31,7 @@ String[] controlText = new String[3];
 boolean fileSelected;
 String filename;
 Movie movie;
+float playbackSpeed;
 
 //processing image stuff
 PGraphics pgr;
@@ -46,17 +47,6 @@ int direction = 0;
 int threshold = 80;
 int maxThreshold = 100; //this is used for Spout controls
 
-//THIS WAS DEBUGGING:::
-// threshold values to determine sorting start and end pixels
-//starting values:
-int blackStartV = 0;
-int whiteStartV = 50;
-int brightnessStartV = 50;
-
-//a sine oscillator will be scaled by the vars below and then added to current threshold value
-int blackValueFlux = -100;
-int whiteValueFlux = 50;
-int brightnessValueFlux = 50;
 
 int blackValue;
 int whiteValue;
@@ -70,6 +60,10 @@ boolean displayWords;
 boolean looping = true;
 long currTime, prevTime;
 long elapsedTime;
+
+//SOUND CONTROL
+//we don't want no sound to play, right?
+Sound s;
 
 void setup() {  
   // use only numbers (not variables) for the size() command, Processing 3
@@ -87,6 +81,8 @@ void setup() {
    //file opening stuff
   fileSelected = false;
   
+  playbackSpeed = 1;
+  
   //SPOUT STUFF NOW
   spout = new Spout(this);
   spout.createSender(senderName, width, height);
@@ -97,6 +93,10 @@ void setup() {
   spout.openSpoutControls(senderName);
 
   frameRate(30); // :)
+  
+  //sound control:
+  s = new Sound(this);
+  s.volume(0);
 }
 
 
@@ -104,6 +104,7 @@ void draw() {
   // get inputs from spout controls
   int nControls = spout.checkSpoutControls(controlName, controlType, controlValue, controlText);
   //print("nControls = " + nControls + "\n");
+  //print();
   if (nControls > 0) {
     for (int i = 0; i < nControls; i++) {
       //print("(" + i + ") : [" + controlName[i] + "] : Type [" + controlType[i] + "] : Value [" + controlValue[i] + "] : Text [" + controlText[i] + "]" + "\n");
@@ -125,6 +126,7 @@ void draw() {
        delay(200); 
      }
      movie = new Movie(this, filename);
+     movie.volume(0);
      movie.loop();
      movie.frameRate(30);
   }
@@ -178,6 +180,7 @@ void draw() {
     
     trueWords += "\n\nprocessed frames: "+frameCount;
     trueWords += "\nfps: "+frameRate;
+    trueWords += "\nplayback speed multiplier: "+playbackSpeed;
     textSize(20);
   }
   image(img, 0,0, width, height);
@@ -615,6 +618,15 @@ void keyPressed(){
     direction = 2;
   if(key == '0')
     displayWords = !displayWords;
+    
+  if(key=='['){
+    playbackSpeed -= 0.1;
+    movie.speed(playbackSpeed);
+  }
+  if(key==']'){
+    playbackSpeed += 0.1;
+    movie.speed(playbackSpeed);
+  }
    
   if(key == '-')
     threshold -= 1;

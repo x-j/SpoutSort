@@ -1,4 +1,5 @@
 # SpoutSort
+### v1.1.1
 simple Processing patch + SpoutControls FFGL plugin for PixelSorting local videos
 
 ![alt text](http://www.sweetbrokacik.pl/duze/powitalnia.gif)
@@ -94,9 +95,9 @@ You may experience the following:
 
 # changelog
 
-### 1.1 
+## [1.1.0] - 2019-04-07
 
-I've narrowed down the problem regarding the FFGL plugin! but you won't be happy to hear it: it's mostly SpoutControls at fault here. I suggest that after you download the new version, use the procedure described in [the greatest tutorial I've ever read by Eric Medine](http://ericmedine.com/spout-controller-for-resolume/) and re-deploy my script on your machine. yay, bug fixes!
+Some responded that they were having troubles with using this as an FFGL plugin in Resolume. You may be happy to hear that I found a possible culprit, but you won't be happy to hear that: it's most probably SpoutControls at fault here. I suggest that after you download the new version, use the procedure described in [the greatest tutorial I've ever read by Eric Medine](http://ericmedine.com/spout-controller-for-resolume/) and re-deploy my script on your machine. yay, bug fixes!
 
 also the new version contains a new feature that lets you speed up and slow down videos ･'(*⌒―⌒*))) try it!
 

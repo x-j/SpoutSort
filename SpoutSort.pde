@@ -32,6 +32,7 @@ boolean fileSelected;
 String filename;
 Movie movie;
 float playbackSpeed;
+boolean imageRendered;
 
 //processing image stuff
 PGraphics pgr;
@@ -68,10 +69,12 @@ Sound s;
 void setup() {  
   // use only numbers (not variables) for the size() command, Processing 3
   size(1280, 720, P3D);
+  colorMode(RGB);
   noSmooth(); //who the korva needs anti-aliasing
   // allow resize and update surface to image dimensions
   surface.setResizable(true);
   textureMode(NORMAL);
+  background(0);
 
   pgr = createGraphics(width,height, PConstants.P2D);
   img = createImage(width, height, ARGB);
@@ -86,18 +89,19 @@ void setup() {
   //SPOUT STUFF NOW
   spout = new Spout(this);
   spout.createSender(senderName, width, height);
-  spout.createSpoutControl("Sorting mode", "float", 0, 3, 1);
-  spout.createSpoutControl("Threshold value", "float", 0, 200, 90);
+  spout.createSpoutControl("Sorting mode", "float", 0, 2, 1);
+  spout.createSpoutControl("Threshold value", "float", 0, 255, 127);
   spout.createSpoutControl("Direction", "float", 0, 2, 0);
   
   spout.openSpoutControls(senderName);
 
-  frameRate(30); // :)
+  //frameRate(30); // :)
   
   //sound control:
   s = new Sound(this);
   s.volume(0);
 }
+
 
 
 void draw() {
@@ -125,69 +129,96 @@ void draw() {
      while(!fileSelected){
        delay(200); 
      }
+     
      movie = new Movie(this, filename);
      movie.volume(0);
      movie.loop();
      movie.frameRate(30);
+     
+     
   }
-
+  String trueWords = "current file: "+filename ;
   
-  if(movie.available())
-   movie.read();
-  img.resize(movie.width, movie.height);
-  img.copy(movie, 0,0, movie.width, movie.height, 0,0, movie.width, movie.height);
-  // background(0, 100);
-  spout.resizeFrame();
- 
-  // img = spout.receivePixels(img);
-  
-  row = 0;
-  column = 0;
-  
-  //change tresholds:
-  //brightnessValue = brightnessStartV + int(sin(radians(frameCount)) * brightnessValueFlux);
-  //blackValue = blackStartV + int(sin(radians(frameCount)) * blackValueFlux);
-  //whiteValue = whiteStartV + int(sin(radians(frameCount)) * whiteValueFlux);
-    brightnessValue = threshold;
-  blackValue = threshold;
-  whiteValue = threshold;
-  
-  String trueWords = "current mode: ";
-  img.loadPixels();
-  switch(mode) {
-    case 0:
-      trueWords += " black.\n current threshold: "+blackValue;
-      blackSort();
-      break;
+  if(!imageRendered){
+    if(movie.available())
+     movie.read();
+    img.resize(movie.width, movie.height);
+    img.copy(movie, 0,0, movie.width, movie.height, 0,0, movie.width, movie.height);
+    // background(0, 100);
 
-    case 1:
-      trueWords += "brightness.\n current threshold: "+brightnessValue;
-      brightSort();
-      break;
-
-    case 2:
-      trueWords += "white.\n current threshold: "+whiteValue;
-      whiteSort();
-      break;
-
-    default:
-      break;
-  }
-  img.updatePixels();
-  if(displayWords){
-    trueWords +="   ";
-    trueWords += direction == 0 ? "|||" : direction == 1 ? "===" : "///";
+   
+    // img = spout.receivePixels(img);
     
-    trueWords += "\n\nprocessed frames: "+frameCount;
-    trueWords += "\nfps: "+frameRate;
-    trueWords += "\nplayback speed multiplier: "+playbackSpeed;
-    textSize(20);
+    row = 0;
+    column = 0;
+    
+    //change tresholds:
+    //brightnessValue = brightnessStartV + int(sin(radians(frameCount)) * brightnessValueFlux);
+    //blackValue = blackStartV + int(sin(radians(frameCount)) * blackValueFlux);
+    //whiteValue = whiteStartV + int(sin(radians(frameCount)) * whiteValueFlux);
+    brightnessValue = threshold;
+    blackValue = threshold;
+    whiteValue = threshold;
+    
+    trueWords += "\ncurrent mode: ";
+    img.loadPixels();
+    switch(mode) {
+      case 0:
+        trueWords += " black.\n current threshold: "+blackValue;
+        blackSort();
+        break;
+  
+      case 1:
+        trueWords += "brightness.\n current threshold: "+brightnessValue;
+        brightSort();
+        break;
+  
+      case 2:
+        trueWords += "white.\n current threshold: "+whiteValue;
+        whiteSort();
+        break;
+  
+      default:
+        break;
+    }
+     trueWords +="   ";
+      trueWords += direction == 0 ? "|||" : direction == 1 ? "===" : "///";
+    img.updatePixels();
+   
+    //background(0);
+    if(img.width != width || img.height != height){
+      PImage newimage = img.copy();
+      float ratio = img.width/img.height;
+      int newheight = img.height > height ? height : img.height;
+      int newidth = (int)(ratio*newheight);
+       
+      //newimage.resize(newidth, newheight);
+      
+      image(newimage, width - newidth, 0, newidth, newheight);
+    
+    }else
+      image(img, 0,0);
+    if(displayWords){
+     
+      
+      trueWords += "\n\nprocessed frames: "+frameCount;
+      trueWords += "\nfps: "+frameRate;
+      trueWords += "\nplayback speed multiplier: "+playbackSpeed;
+      textSize(20); 
+      
+      fill(0, 64);
+      rect(10, 10, 400, 440);
+      fill(255, 255, 0);
+      text(trueWords, 10, 10, 400, 440);
+      text(brag.subSequence(0,6).toString()+brag.substring(7).toUpperCase(), width - 444, height - 25, width, height);
+      
+    }   
+    if(isItAnImage(filename)){
+        imageRendered = true; 
+    }
   }
-  image(img, 0,0, width, height);
-  if(displayWords){
-    text(trueWords, 10, 10, 350, 380);
-    text(brag.subSequence(0,6).toString()+brag.substring(7).toUpperCase(), width - 444, height - 25, width, height);
-  }
+    
+      spout.resizeFrame();
   spout.sendTexture(img);
 }
 
@@ -586,6 +617,13 @@ void selectFile(File selection) {
   }
 }
 
+boolean isItAnImage(String path) {
+    return (
+       path.endsWith(".jpg") ||
+       path.endsWith(".jpeg") ||
+       path.endsWith(".png")  ) ;
+}
+
 
 // SELECT A SPOUT SENDER
 // void mousePressed() {
@@ -604,6 +642,9 @@ void mousePressed(){
 }
 //CHANGE MODE:
 void keyPressed(){
+  imageRendered = false;
+  
+  
   if(key == '1')
     mode = 1;
   if(key == '2')

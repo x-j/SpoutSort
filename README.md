@@ -92,6 +92,16 @@ You may experience the following:
 
 ![twuj stary](https://i.ibb.co/zPwwrp8/twuj-stary.png)
 
+# changelog
+
+- 1.1 
+I've narrowed down the problem regarding the FFGL plugin! but you won't be happy to hear it: it's mostly SpoutControls at fault here. I suggest that after you download the new version, use the procedure described in [http://ericmedine.com/spout-controller-for-resolume/](the greatest tutorial I've ever read by Eric Medine) and re-deploy my script on your machine. yay, bug fixes!
+
+also the new version contains a new feature that lets you speed up and slow down videos ･'(*⌒―⌒*))) try it!
+
+- 1.0
+no-man's land but for all we knew it worked!
+
 
 # Licence
 this uses GPL3 but in general please don't be a jerk and support your local open-source community.
